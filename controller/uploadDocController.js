@@ -4,6 +4,7 @@ const pinataApiKey = "aad083475e48815a72b6";
 const pinataSecretApiKey = "67ff9281afe74add84eaeb0dc7d82112098723952e8147c6679c78c59446e848";
 const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
 const ipfsCloudURL = 'https://gateway.pinata.cloud/ipfs'
+const JSONToIPFSURL = 'https://api.pinata.cloud/pinning/pinJSONToIPFS'
 const axios = require("axios");
 const FormData = require("form-data");
 
@@ -11,7 +12,6 @@ const FormData = require("form-data");
 const uploadDoc = async (req, res, next) => {
   try {
     let doc = req.file;
-    console.log('doc====',doc);
     let form = new FormData();
     form.append('file', doc.buffer, doc.originalname);
     const result = await axios.post(url, form, {
@@ -51,17 +51,23 @@ const getDoc = async(req, res, next)=>{
 //upload json object for pinata @Vineet
 const uploadObj = async (req, res, next) => {
   try {
-    let data = {
+    let metaData = {
       "Name": req.body.Name,
       "Creator": req.body.Creator,
       "Content Hash": req.body['Content Hash'],
       "FileExtension": req.body.FileExtension
     };
-    console.log('doc====', data);
-    const result = await axios.post(url, data, {
-        maxContentLength: "Infinity", 
+    const pinataJsonObject = {
+      pinataMetadata: {
+        name:
+        metaData["Name"] + " Metadata by " + metaData['Creator'] + " - " + req.body.SignerAddress,
+      },
+      pinataContent: metaData,
+    };
+    let data = JSON.stringify(pinataJsonObject);
+    const result = await axios.post(JSONToIPFSURL, data, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': "application/json",
           pinata_api_key: pinataApiKey, 
           pinata_secret_api_key: pinataSecretApiKey,
         },
