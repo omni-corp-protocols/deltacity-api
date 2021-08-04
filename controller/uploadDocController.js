@@ -28,6 +28,7 @@ const uploadDoc = async (req, res, next) => {
     }
 };
 
+
 //get doc api @Vineet
 const getDoc = async(req, res, next)=>{
 //   try{
