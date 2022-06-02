@@ -42,7 +42,7 @@ app.use((err, req, res, next) => {
 });
 
 // _db.connect(() => {
-  app.listen(PORT, () => console.log('Express server is runnig at port no : 8080'));
+  app.listen(PORT, () => console.log(`Express server is runnig at port no : ${PORT}`));
 // });
 
 
