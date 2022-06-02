@@ -1,7 +1,7 @@
 const uuidv1 = require('uuid/v1');
 const jwt = require('jsonwebtoken');
-const pinataApiKey = "aad083475e48815a72b6";
-const pinataSecretApiKey = "67ff9281afe74add84eaeb0dc7d82112098723952e8147c6679c78c59446e848";
+const pinataApiKey = "f7163696a57cde922d2c";
+const pinataSecretApiKey = "414f5c185e8f1c163d9fa813b2baeae2303ca4b8bc6e049aa7dd18ec9e93ecd9";
 const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
 const ipfsCloudURL = 'https://gateway.pinata.cloud/ipfs'
 const JSONToIPFSURL = 'https://api.pinata.cloud/pinning/pinJSONToIPFS'
@@ -53,10 +53,11 @@ const getDoc = async(req, res, next)=>{
 const uploadObj = async (req, res, next) => {
   try {
     let metaData = {
-      "Name": req.body.Name,
-      "Creator": req.body.Creator,
-      "Content Hash": req.body['Content Hash'],
-      "FileExtension": req.body.FileExtension
+      "Name": req.body.name,
+      "Creator": req.body.creator,
+      "Content Hash": req.body['contentHash'],
+      "Recipient": req.body['recipient'],
+      "FileExtension": req.body.fileExtension
     };
     const pinataJsonObject = {
       pinataMetadata: {

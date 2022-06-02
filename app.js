@@ -5,7 +5,7 @@ const helmet = require('helmet');
 var cors = require('cors');
 require('dotenv').config();
 const commonRoutes = require('./routes/commonRoutes');
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8085
 const { handleError }  = require('./util/errorHandler');
 const morgan = require('morgan');
 var multer = require('multer');
